@@ -2,35 +2,72 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Música</title>
+  <title>Mi Música - Perreo 🔥</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
+      background: linear-gradient(#111, #222);
       color: white;
       text-align: center;
       padding: 20px;
+      min-height: 100vh;
+      margin: 0;
     }
     h1 {
       margin-bottom: 5px;
+      color: #ff2e63;
+      text-shadow: 0 0 10px rgba(255,46,99,0.5);
     }
     p {
       color: #aaa;
+      margin-bottom: 30px;
     }
     .song {
-      margin-bottom: 25px;
+      margin-bottom: 35px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .song h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.2em;
+    }
+    .song .artist {
+      color: #ff2e63;
+      margin: 0 0 15px 0;
+      font-size: 0.9em;
+    }
+    .song .genre {
+      color: #08d9d6;
+      font-size: 0.8em;
+      margin: 5px 0;
     }
     audio {
       width: 100%;
       max-width: 400px;
       margin: 10px auto;
       display: block;
+      background: #222;
+      border-radius: 5px;
     }
     img {
       max-width: 300px;
       margin: 10px auto;
       display: block;
       border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      /* Si no hay imagen, se usa una por defecto */
+      object-fit: cover;
+      height: 300px;
+    }
+    /* Efecto al pasar el mouse */
+    .song:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
     }
   </style>
 </head>
@@ -44,13 +81,13 @@
   <script>
     // Lista de canciones con su archivo de audio y foto
     const songs = [
-       
-    
-  title: "Yo Sé - ISAAC_BLACKEE x medicenarez", 
-  file: "Yo Sé - @ISAAC_BLACKEE x @medicenarez (Video Oficial) - Dimelo Wini_1770084689887.mp3", 
-  image: "musica/default.jpg"
+      { 
+        title: "Yo Sé", 
+        artist: "ISAAC_BLACKEE x medicenarez",
+        genre: "Perreo 🔥",
+        file: "Yo Sé - @ISAAC_BLACKEE x @medicenarez (Video Oficial) - Dimelo Wini_1770084689887.mp3", 
+        image: "musica/default.jpg" 
       }
-      
       // Aquí puedes agregar más canciones sin tocar el HTML
     ];
 
@@ -63,9 +100,21 @@
       const h3 = document.createElement("h3");
       h3.textContent = song.title;
 
+      const artistP = document.createElement("p");
+      artistP.classList.add("artist");
+      artistP.textContent = `Artistas: ${song.artist}`;
+
+      const genreP = document.createElement("p");
+      genreP.classList.add("genre");
+      genreP.textContent = `Género: ${song.genre}`;
+
       const img = document.createElement("img");
       img.src = song.image;
       img.alt = song.title;
+      // Si la imagen no existe, carga una por defecto de internet
+      img.onerror = () => {
+        img.src = "https://via.placeholder.com/300x300?text=PERREO+🔥";
+      };
 
       const audio = document.createElement("audio");
       audio.controls = true;
@@ -77,6 +126,8 @@
       audio.appendChild(source);
 
       div.appendChild(h3);
+      div.appendChild(artistP);
+      div.appendChild(genreP);
       div.appendChild(img);
       div.appendChild(audio);
 
