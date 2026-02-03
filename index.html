@@ -17,14 +17,20 @@
     p {
       color: #aaa;
     }
+    .song {
+      margin-bottom: 25px;
+    }
     audio {
       width: 100%;
       max-width: 400px;
-      margin: 15px auto;
+      margin: 10px auto;
       display: block;
     }
-    .song {
-      margin-bottom: 25px;
+    img {
+      max-width: 300px;
+      margin: 10px auto;
+      display: block;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -33,19 +39,53 @@
   <h1>🎵 Mi Página de Música</h1>
   <p>Solo el admin sube la música</p>
 
-  <div class="song">
-    <h3>Canción 1</h3>
-    <audio controls>
-      <source src="musica/cancion1.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+  <div id="songs-container"></div>
 
-  <div class="song">
-    <h3>Canción 2</h3>
-    <audio controls>
-      <source src="musica/cancion2.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+  <script>
+    // Lista de canciones con su archivo de audio y foto
+    const songs = [
+      { 
+        title: "Canción 1", 
+        file: "musica/cancion1.mp3", 
+        image: "musica/cancion1.jpg" 
+      },
+      { 
+        title: "Canción 2", 
+        file: "musica/cancion2.mp3", 
+        image: "musica/cancion2.jpg" 
+      }
+      // Aquí puedes agregar más canciones sin tocar el HTML
+    ];
+
+    const container = document.getElementById("songs-container");
+
+    songs.forEach(song => {
+      const div = document.createElement("div");
+      div.classList.add("song");
+
+      const h3 = document.createElement("h3");
+      h3.textContent = song.title;
+
+      const img = document.createElement("img");
+      img.src = song.image;
+      img.alt = song.title;
+
+      const audio = document.createElement("audio");
+      audio.controls = true;
+
+      const source = document.createElement("source");
+      source.src = song.file;
+      source.type = "audio/mpeg";
+
+      audio.appendChild(source);
+
+      div.appendChild(h3);
+      div.appendChild(img);
+      div.appendChild(audio);
+
+      container.appendChild(div);
+    });
+  </script>
 
 </body>
 </html>
